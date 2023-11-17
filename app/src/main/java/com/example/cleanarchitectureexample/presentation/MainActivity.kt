@@ -1,26 +1,16 @@
 package com.example.cleanarchitectureexample.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.cleanarchitectureexample.data.repository.UserRepositoryImpl
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cleanarchitectureexample.databinding.ActivityMainBinding
-
-import com.example.cleanarchitectureexample.domain.models.SaveUserNameParam
-import com.example.cleanarchitectureexample.domain.usecase.GetUserNameUseCase
-import com.example.cleanarchitectureexample.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
-        UserRepositoryImpl(applicationContext)
-    }
-    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
-        GetUserNameUseCase(userRepository)
-    }
-    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
-        SaveUserNameUseCase(userRepository)
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(applicationContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +20,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             val text = binding.editText.text.toString()
-            val params = SaveUserNameParam(text)
-            val result = saveUserNameUseCase.execute(param = params)
-            binding.dataTextView.text = "Save result = $result"
+            viewModel.save(text)
         }
 
         binding.getButton.setOnClickListener {
-            val userName = getUserNameUseCase.execute()
-            binding.dataTextView.text = "${userName.firstName} ${userName.lastName}"
+            viewModel.load()
+        }
+
+        viewModel.result.observe(this) {
+            binding.dataTextView.text = it
         }
     }
 
