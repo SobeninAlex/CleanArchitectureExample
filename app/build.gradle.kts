@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
+    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
 
@@ -57,8 +57,4 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":data"))
-}
-
-kapt {
-    correctErrorTypes = true
 }
