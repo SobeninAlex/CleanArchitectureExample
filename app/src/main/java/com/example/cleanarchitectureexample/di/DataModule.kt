@@ -6,14 +6,17 @@ import com.example.cleanarchitectureexample.data.storage.UserStorage
 import com.example.cleanarchitectureexample.data.storage.sharedprefs.SharedPrefUserStorage
 import com.example.cleanarchitectureexample.domain.repository.UserRepository
 import dagger.Module
+import dagger.Provides
 
 @Module
 class DataModule {
 
+    @Provides
     fun provideUserStorage(context: Context): UserStorage {
         return SharedPrefUserStorage(context = context)
     }
 
+    @Provides
     fun provideUserRepository(userStorage: UserStorage): UserRepository {
         return UserRepositoryImpl(userStorage = userStorage)
     }

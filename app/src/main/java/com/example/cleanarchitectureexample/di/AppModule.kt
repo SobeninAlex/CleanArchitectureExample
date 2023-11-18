@@ -5,14 +5,17 @@ import com.example.cleanarchitectureexample.domain.usecase.GetUserNameUseCase
 import com.example.cleanarchitectureexample.domain.usecase.SaveUserNameUseCase
 import com.example.cleanarchitectureexample.presentation.MainViewModelFactory
 import dagger.Module
+import dagger.Provides
 
 @Module
 class AppModule(val context: Context) {
 
+    @Provides
     fun provideContext(): Context {
         return context
     }
 
+    @Provides
     fun provideMainViewModelFactory(
         getUserNameUseCase: GetUserNameUseCase,
         saveUserNameUseCase: SaveUserNameUseCase
