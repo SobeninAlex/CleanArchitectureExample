@@ -9,9 +9,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(applicationContext)
-    }
+//    private val viewModel: MainViewModel by viewModels {
+//        MainViewModelFactory()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,16 +20,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             val text = binding.editText.text.toString()
-            viewModel.save(text)
+//            viewModel.save(text)
         }
 
         binding.getButton.setOnClickListener {
-            viewModel.load()
+//            viewModel.load()
         }
 
-        viewModel.result.observe(this) {
-            binding.dataTextView.text = it
-        }
+//        viewModel.result.observe(this) {
+//            binding.dataTextView.text = it
+//        }
     }
 
 }
