@@ -52,7 +52,7 @@ dependencies {
     implementation ("androidx.activity:activity-ktx:1.8.0")
 
     implementation("com.google.dagger:dagger:2.48.1")
-    kapt ("com.google.dagger:dagger-compiler:2.48.1")
+    kapt("com.google.dagger:dagger-compiler:2.48.1")
 
     implementation(project(":domain"))
     implementation(project(":data"))
