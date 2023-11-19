@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation(project(":domain"))
-    implementation(project(":data"))//
+    implementation(project(":data"))
 
     implementation("io.insert-koin:koin-core:3.5.0")
     testImplementation("io.insert-koin:koin-test:3.5.0")
