@@ -1,1 +1,1 @@
-![scheme.png](scheme.png)
+![MVI.png](MVI.png)

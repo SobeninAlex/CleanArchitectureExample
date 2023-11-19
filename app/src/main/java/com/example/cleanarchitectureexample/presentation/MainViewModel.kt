@@ -1,12 +1,8 @@
 package com.example.cleanarchitectureexample.presentation
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.cleanarchitectureexample.data.repository.UserRepositoryImpl
-import com.example.cleanarchitectureexample.data.storage.sharedprefs.SharedPrefUserStorage
 import com.example.cleanarchitectureexample.domain.models.SaveUserNameParam
 import com.example.cleanarchitectureexample.domain.usecase.GetUserNameUseCase
 import com.example.cleanarchitectureexample.domain.usecase.SaveUserNameUseCase
@@ -16,18 +12,37 @@ class MainViewModel(
     private val saveUserNameUseCase: SaveUserNameUseCase
 ) : ViewModel() {
 
-    private val _result = MutableLiveData<String>()
-    val result: LiveData<String> = _result
+    private val _state = MutableLiveData<MainState>()
+    val state: LiveData<MainState> = _state
 
-    fun save(text: String) {
-        val params = SaveUserNameParam(text)
-        val resultData = saveUserNameUseCase.execute(param = params)
-        _result.value = "Save result = $resultData"
+    init {
+        _state.value = MainState(saveResult = false, firstName = "", lastName = "")
     }
 
-    fun load() {
+    fun send(event: MainEvent) {
+        when (event) {
+            is SaveEvent -> save(text = event.text)
+            is LoadEvent -> load()
+        }
+    }
+
+    private fun save(text: String) {
+        val params = SaveUserNameParam(text)
+        val resultData = saveUserNameUseCase.execute(param = params)
+        _state.value = MainState(
+            saveResult = resultData,
+            firstName = _state.value?.firstName ?: "",
+            lastName = _state.value?.firstName ?: "",
+        )
+    }
+
+    private fun load() {
         val userName = getUserNameUseCase.execute()
-        _result.value = "${userName.firstName} ${userName.lastName}"
+        _state.value = MainState(
+            saveResult = _state.value!!.saveResult,
+            firstName = userName.firstName,
+            lastName = userName.lastName
+        )
     }
 
 }

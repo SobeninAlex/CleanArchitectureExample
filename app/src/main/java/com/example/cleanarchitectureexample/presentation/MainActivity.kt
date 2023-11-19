@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             val text = binding.editText.text.toString()
-            viewModel.save(text)
+            viewModel.send(event = SaveEvent(text))
         }
 
         binding.getButton.setOnClickListener {
-            viewModel.load()
+            viewModel.send(event = LoadEvent())
         }
 
-        viewModel.result.observe(this) {
-            binding.dataTextView.text = it
+        viewModel.state.observe(this) {
+            binding.dataTextView.text = "${it.firstName} ${it.lastName} ${it.saveResult}"
         }
     }
 
