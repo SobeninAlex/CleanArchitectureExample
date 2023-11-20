@@ -40,6 +40,12 @@ android {
         viewBinding = true
     }
 
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+
 }
 
 dependencies {
