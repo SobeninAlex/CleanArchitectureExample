@@ -1,22 +1,18 @@
-package com.example.cleanarchitectureexample.presentation
+package com.example.cleanarchitectureexample.presentation.view
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cleanarchitectureexample.app.App
 import com.example.cleanarchitectureexample.databinding.ActivityMainBinding
+import com.example.cleanarchitectureexample.presentation.presenter.MainPresenterImpl
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var viewModelFactory: MainViewModelFactory
+class MainActivity : AppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val viewModel: MainViewModel by viewModels {
-        viewModelFactory
-    }
+    @Inject
+    lateinit var presenter: MainPresenterImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +23,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             val text = binding.editText.text.toString()
-            viewModel.save(text)
+            presenter.save(text)
         }
 
         binding.getButton.setOnClickListener {
-            viewModel.load()
+            presenter.load()
         }
+    }
 
-        viewModel.result.observe(this) {
-            binding.dataTextView.text = it
-        }
+    override fun showResult(text: String) {
+        binding.dataTextView.text = text
     }
 
 }

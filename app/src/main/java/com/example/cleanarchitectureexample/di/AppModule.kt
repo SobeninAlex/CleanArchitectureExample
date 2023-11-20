@@ -3,7 +3,8 @@ package com.example.cleanarchitectureexample.di
 import android.content.Context
 import com.example.cleanarchitectureexample.domain.usecase.GetUserNameUseCase
 import com.example.cleanarchitectureexample.domain.usecase.SaveUserNameUseCase
-import com.example.cleanarchitectureexample.presentation.MainViewModelFactory
+import com.example.cleanarchitectureexample.presentation.presenter.MainPresenterImpl
+import com.example.cleanarchitectureexample.presentation.view.MainView
 import dagger.Module
 import dagger.Provides
 
@@ -16,13 +17,15 @@ class AppModule(val context: Context) {
     }
 
     @Provides
-    fun provideMainViewModelFactory(
+    fun provideMainPresenterImpl(
         getUserNameUseCase: GetUserNameUseCase,
-        saveUserNameUseCase: SaveUserNameUseCase
-    ): MainViewModelFactory {
-         return MainViewModelFactory(
+        saveUserNameUseCase: SaveUserNameUseCase,
+        view: MainView
+    ): MainPresenterImpl {
+         return MainPresenterImpl(
              getUserNameUseCase = getUserNameUseCase,
-             saveUserNameUseCase = saveUserNameUseCase
+             saveUserNameUseCase = saveUserNameUseCase,
+             view = view
          )
     }
 

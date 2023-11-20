@@ -1,6 +1,6 @@
 package com.example.cleanarchitectureexample.di
 
-import com.example.cleanarchitectureexample.presentation.MainActivity
+import com.example.cleanarchitectureexample.presentation.view.MainActivity
 import dagger.Component
 
 @Component(modules = [AppModule::class, DataModule::class, DomainModule::class])
