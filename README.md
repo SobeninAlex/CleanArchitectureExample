@@ -4,7 +4,7 @@ Branches:
 - hilt-example -> использование библиотеки Hilt для встраивания зависимостей
 - dagger-example -> использование библиотеки Dagger для встраивания зависимостей
 - koin-example -> использование библиотеки Koin для встраивания зависимостей
-- mvi-example -> импользование паттерна MVI
-- mvp-example -> использование паттерна MVP
+- mvi-example -> пример паттерна MVI
+- mvp-example -> пример паттерна MVP
 
 ![scheme.png](scheme.png)
